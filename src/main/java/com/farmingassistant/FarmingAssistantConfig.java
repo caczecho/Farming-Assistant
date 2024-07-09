@@ -1,4 +1,4 @@
-package com.farming.assistant;
+package com.farmingassistant;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
