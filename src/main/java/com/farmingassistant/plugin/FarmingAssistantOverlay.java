@@ -1,5 +1,6 @@
-package com.farmingassistant;
+package com.farmingassistant.plugin;
 
+import com.farmingassistant.config.FarmingAssistantConfig;
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
