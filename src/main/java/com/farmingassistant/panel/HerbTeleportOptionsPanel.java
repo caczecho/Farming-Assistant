@@ -31,6 +31,7 @@ public class HerbTeleportOptionsPanel extends JPanel {
         addTeleportOption("Morytania", new String[]{"Ectophial"});
         addTeleportOption("Troll Stronghold", new String[]{"Stony Basalt", "Portal Nexus"});
         addTeleportOption("Weiss", new String[]{"Icy Basalt", "Portal Nexus"});
+        addTeleportOption("Civitas illa Fortis", new String[]{"Enhanced Quetzal whistle", "Civitas illa Fortis Teleport", "Fairy Ring", "Spirit Tree & Fairy Ring"});
     }
 
     /**

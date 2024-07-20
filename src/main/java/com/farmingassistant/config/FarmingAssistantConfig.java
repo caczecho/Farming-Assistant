@@ -147,7 +147,7 @@ public interface FarmingAssistantConfig extends Config
             section = herbRunSection
     )
     default String herbRunLocations() {
-        return "Ardougne,Catherby,Falador,Farming Guild,Harmony,Kourend,Morytania,Troll Stronghold,Weiss";
+        return "Ardougne,Catherby,Falador,Farming Guild,Harmony,Kourend,Morytania,Troll Stronghold,Weiss,Civitas illa Fortis";
     }
 
     /**

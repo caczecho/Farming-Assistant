@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class FarmingAssistantPanel extends PluginPanel {
     private static final List<String> ALL_LOCATIONS = Arrays.asList(
-            "Ardougne", "Catherby", "Falador", "Farming Guild", "Harmony", "Kourend", "Morytania", "Troll Stronghold", "Weiss"
+            "Ardougne", "Catherby", "Falador", "Farming Guild", "Harmony", "Kourend", "Morytania", "Troll Stronghold", "Weiss", "Civitas illa Fortis"
     );
 
     private final Client client;

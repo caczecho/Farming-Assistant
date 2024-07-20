@@ -44,6 +44,7 @@ public class HerbRunItemAndLocation {
         setupMorytaniaLocation();
         setupTrollStrongholdLocation();
         setupWeissLocation();
+        setupCivitasIllaFortisLocation();
     }
 
     /**
@@ -281,8 +282,8 @@ public class HerbRunItemAndLocation {
                 "Spirit Tree & Fairy Ring",
                 Location.TeleportCategory.ITEM,
                 "Teleport to Farming guild using Spirit Tree & Fairy Ring.",
-                ItemID.SPIRIT_TREE, "null", 0, 0, 4922, farmingGuildHerbPatchPoint,
-                Collections.singletonList(new ItemRequirement(ItemID.SPIRIT_TREE, 1))
+                ItemID.SPIRIT_TREE__FAIRY_RING, "null", 0, 0, 4922, farmingGuildHerbPatchPoint,
+                Collections.singletonList(new ItemRequirement(ItemID.SPIRIT_TREE__FAIRY_RING, 1))
         ));
 
         locations.add(farmingGuildLocation);
@@ -408,6 +409,73 @@ public class HerbRunItemAndLocation {
         ));
 
         locations.add(weissLocation);
+    }
+
+    /**
+     * Sets up the Civitas illa Fortis location.
+     */
+    private void setupCivitasIllaFortisLocation() {
+        WorldPoint civitasIllaFortisHerbPatchPoint = new WorldPoint(3200, 3200, 0); // TODO Replace with actual coordinates
+
+        Location civitasIllaFortisLocation = new Location("Civitas illa Fortis");
+
+        civitasIllaFortisLocation.addTeleportOption(new Location.Teleport(
+                "Enhanced Quetzal whistle",
+                Location.TeleportCategory.ITEM,
+                "Use Quetzal whistle or Hunter skillcape teleport to the Hunter Guild, then run north.",
+                ItemID.ENHANCED_QUETZAL_WHISTLE, // Replace with actual item ID
+                "null",
+                0,
+                0,
+                0,
+                civitasIllaFortisHerbPatchPoint,
+                Collections.singletonList(new ItemRequirement(
+                        ItemID.ENHANCED_QUETZAL_WHISTLE, // Replace with actual item ID
+                        1
+                ))
+        ));
+
+        civitasIllaFortisLocation.addTeleportOption(new Location.Teleport(
+                "Civitas illa Fortis Teleport",
+                Location.TeleportCategory.ITEM,
+                "Teleport to Civitas illa Fortis, then take the Quetzal Transport System teleport to the Hunter Guild, then run north.",
+                ItemID.CIVITAS_ILLA_FORTIS_TELEPORT, // Replace with actual item ID
+                "null",
+                0,
+                0,
+                0,
+                civitasIllaFortisHerbPatchPoint,
+                Collections.singletonList(new ItemRequirement(
+                        ItemID.CIVITAS_ILLA_FORTIS_TELEPORT, // Replace with actual item ID
+                        1
+                ))
+        ));
+
+        civitasIllaFortisLocation.addTeleportOption(new Location.Teleport(
+                "Fairy Ring",
+                Location.TeleportCategory.ITEM,
+                "Use Fairy ring code ajp, then run north-west.",
+                ItemID.FAIRY_RING, // Replace with actual item ID
+                "null",
+                0,
+                0,
+                0,
+                civitasIllaFortisHerbPatchPoint,
+                Collections.singletonList(new ItemRequirement(
+                        ItemID.FAIRY_RING, // Replace with actual item ID
+                        1
+                ))
+        ));
+
+        civitasIllaFortisLocation.addTeleportOption(new Location.Teleport(
+                "Spirit Tree & Fairy Ring",
+                Location.TeleportCategory.ITEM,
+                "Use Fairy ring code ajp, then run north-west.",
+                ItemID.SPIRIT_TREE__FAIRY_RING, "null", 0, 0, 4922, civitasIllaFortisHerbPatchPoint,
+                Collections.singletonList(new ItemRequirement(ItemID.SPIRIT_TREE__FAIRY_RING, 1))
+        ));
+
+        locations.add(civitasIllaFortisLocation);
     }
 
     /**
