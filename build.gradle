@@ -23,6 +23,14 @@ dependencies {
 	testImplementation group: 'net.runelite', name:'jshell', version: runeLiteVersion
 }
 
+sourceSets {
+	main {
+		resources {
+			srcDirs = ['src/main/resources']
+		}
+	}
+}
+
 group = 'com.farming.assistant'
 version = '1.0-SNAPSHOT'
 

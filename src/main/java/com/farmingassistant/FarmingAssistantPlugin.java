@@ -12,11 +12,11 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 @PluginDescriptor(
 		name = "Farming Assistant"
@@ -55,7 +55,15 @@ public class FarmingAssistantPlugin extends Plugin {
 		overlayManager.add(overlay);
 		panel = new FarmingAssistantPanel(client, clientThread);
 
-		final BufferedImage icon = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+		final BufferedImage icon;
+		try (InputStream in = getClass().getResourceAsStream("/herb.png")) {
+			if (in == null) {
+				throw new IOException("Icon not found");
+			}
+			icon = ImageIO.read(in);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 
 		navButton = NavigationButton.builder()
 				.tooltip("Farming Assistant")
