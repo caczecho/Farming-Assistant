@@ -626,7 +626,7 @@ public class HerbRunItemAndLocation {
     }
 
     public List<ItemRequirement> getHouseTeleportItemRequirements() {
-        FarmingAssistantConfig.OptionEnumHouseTele selectedOption = config.enumConfigHouseTele();
+        FarmingAssistantConfig.OptionEnumHouseTele selectedOption = config.houseTeleport();
 
         List<ItemRequirement> itemRequirements = new ArrayList<>();
 

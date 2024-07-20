@@ -2,6 +2,7 @@ package com.farmingassistant.plugin;
 
 import com.farmingassistant.config.FarmingAssistantConfig;
 import com.farmingassistant.panel.FarmingAssistantPanel;
+import com.farmingassistant.overlay.FarmingAssistantOverlay;
 import com.google.inject.Provides;
 import net.runelite.api.Client;
 import net.runelite.client.callback.ClientThread;
@@ -44,6 +45,9 @@ public class FarmingAssistantPlugin extends Plugin {
 	@Inject
 	private ClientToolbar clientToolbar;
 
+	@Inject
+	private ConfigManager configManager;
+
 	private FarmingAssistantPanel panel;
 	private NavigationButton navButton;
 
@@ -55,7 +59,7 @@ public class FarmingAssistantPlugin extends Plugin {
 	@Override
 	protected void startUp() throws Exception {
 		overlayManager.add(overlay);
-		panel = new FarmingAssistantPanel(client, clientThread, config);
+		panel = new FarmingAssistantPanel(client, clientThread, config, configManager);
 
 		final BufferedImage icon;
 		try (InputStream in = getClass().getResourceAsStream("/herb.png")) {

@@ -31,6 +31,15 @@ public class HerbTeleportOptionsPanel extends JPanel {
         add(comboBox);
     }
 
+    public void setSelectedTeleports(Map<String, String> selectedTeleports) {
+        selectedTeleports.forEach((location, teleport) -> {
+            JComboBox<String> comboBox = teleportOptions.get(location);
+            if (comboBox != null) {
+                comboBox.setSelectedItem(teleport);
+            }
+        });
+    }
+
     public Map<String, String> getSelectedTeleports() {
         Map<String, String> selectedTeleports = new HashMap<>();
         for (Map.Entry<String, JComboBox<String>> entry : teleportOptions.entrySet()) {

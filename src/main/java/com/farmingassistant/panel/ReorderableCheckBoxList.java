@@ -11,10 +11,10 @@ public class ReorderableCheckBoxList extends JList<JCheckBox> {
     private DefaultListModel<JCheckBox> listModel;
     private int hoveredIndex = -1;
 
-    public ReorderableCheckBoxList(List<String> items) {
+    public ReorderableCheckBoxList(List<JCheckBox> items) {
         listModel = new DefaultListModel<>();
-        for (String item : items) {
-            listModel.addElement(createCheckBox(item));
+        for (JCheckBox item : items) {
+            listModel.addElement(item);
         }
         setModel(listModel);
         setCellRenderer(new CheckBoxListRenderer());

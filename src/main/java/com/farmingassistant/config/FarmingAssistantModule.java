@@ -1,6 +1,6 @@
 package com.farmingassistant.config;
 
-import com.farmingassistant.plugin.FarmingAssistantOverlay;
+import com.farmingassistant.overlay.FarmingAssistantOverlay;
 import com.farmingassistant.panel.FarmingAssistantPanel;
 import com.farmingassistant.plugin.FarmingAssistantPlugin;
 import com.google.inject.AbstractModule;
