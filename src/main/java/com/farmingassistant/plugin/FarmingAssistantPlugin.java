@@ -1,8 +1,8 @@
 package com.farmingassistant.plugin;
 
 import com.farmingassistant.config.FarmingAssistantConfig;
-import com.farmingassistant.panel.FarmingAssistantPanel;
 import com.farmingassistant.overlay.FarmingAssistantOverlay;
+import com.farmingassistant.panel.FarmingAssistantPanel;
 import com.google.inject.Provides;
 import net.runelite.api.Client;
 import net.runelite.client.callback.ClientThread;
@@ -21,6 +21,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Plugin for managing farming activities in Runelite.
+ */
 @PluginDescriptor(
 		name = "Farming Assistant"
 )
@@ -48,18 +51,28 @@ public class FarmingAssistantPlugin extends Plugin {
 	@Inject
 	private ConfigManager configManager;
 
-	private FarmingAssistantPanel panel;
 	private NavigationButton navButton;
 
+	/**
+	 * Provides the configuration for the plugin.
+	 *
+	 * @param configManager the configuration manager
+	 * @return the farming assistant configuration
+	 */
 	@Provides
 	FarmingAssistantConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(FarmingAssistantConfig.class);
 	}
 
+	/**
+	 * Initializes and starts up the plugin.
+	 *
+	 * @throws Exception if an error occurs during startup
+	 */
 	@Override
 	protected void startUp() throws Exception {
 		overlayManager.add(overlay);
-		panel = new FarmingAssistantPanel(client, clientThread, config, configManager);
+		FarmingAssistantPanel panel = new FarmingAssistantPanel(client, clientThread, config, configManager);
 
 		final BufferedImage icon;
 		try (InputStream in = getClass().getResourceAsStream("/herb.png")) {
@@ -81,6 +94,11 @@ public class FarmingAssistantPlugin extends Plugin {
 		log.info("Farming Assistant started!");
 	}
 
+	/**
+	 * Shuts down the plugin.
+	 *
+	 * @throws Exception if an error occurs during shutdown
+	 */
 	@Override
 	protected void shutDown() throws Exception {
 		overlayManager.remove(overlay);

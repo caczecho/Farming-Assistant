@@ -2,16 +2,28 @@ package com.farmingassistant.panel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/**
+ * A custom JList for displaying and reordering JCheckBox items.
+ */
 public class ReorderableCheckBoxList extends JList<JCheckBox> {
-    private DefaultListModel<JCheckBox> listModel;
+    private final DefaultListModel<JCheckBox> listModel;
+    private final Runnable onChange;
     private int hoveredIndex = -1;
 
-    public ReorderableCheckBoxList(List<JCheckBox> items) {
+    /**
+     * Constructs a ReorderableCheckBoxList with a list of JCheckBox items.
+     *
+     * @param items    The list of JCheckBox items to display.
+     * @param onChange A callback to be executed when the list changes.
+     */
+    public ReorderableCheckBoxList(List<JCheckBox> items, Runnable onChange) {
+        this.onChange = onChange;
         listModel = new DefaultListModel<>();
         for (JCheckBox item : items) {
             listModel.addElement(item);
@@ -31,6 +43,7 @@ public class ReorderableCheckBoxList extends JList<JCheckBox> {
                 if (index != -1) {
                     JCheckBox checkbox = listModel.getElementAt(index);
                     checkbox.setSelected(!checkbox.isSelected());
+                    onChange.run();
                     repaint();
                 }
             }
@@ -57,23 +70,50 @@ public class ReorderableCheckBoxList extends JList<JCheckBox> {
         });
     }
 
-    private JCheckBox createCheckBox(String text) {
-        JCheckBox checkBox = new JCheckBox(text);
-        checkBox.setOpaque(true);
-        checkBox.setBackground(Color.WHITE);
-        checkBox.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        return checkBox;
-    }
-
     @Override
     public Dimension getPreferredScrollableViewportSize() {
         return getPreferredSize();
     }
 
+    /**
+     * Retrieves the list model containing the JCheckBox items.
+     *
+     * @return The list model containing the JCheckBox items.
+     */
     public ListModel<JCheckBox> getListModel() {
         return listModel;
     }
 
+    /**
+     * Custom Transferable implementation for JCheckBox items.
+     */
+    private static class CheckBoxTransferable implements Transferable {
+        private static final DataFlavor CHECKBOX_DATA_FLAVOR = new DataFlavor(JCheckBox.class, "JCheckBox");
+        private final JCheckBox checkBox;
+
+        public CheckBoxTransferable(JCheckBox checkBox) {
+            this.checkBox = checkBox;
+        }
+
+        @Override
+        public DataFlavor[] getTransferDataFlavors() {
+            return new DataFlavor[]{CHECKBOX_DATA_FLAVOR};
+        }
+
+        @Override
+        public boolean isDataFlavorSupported(DataFlavor flavor) {
+            return CHECKBOX_DATA_FLAVOR.equals(flavor);
+        }
+
+        @Override
+        public Object getTransferData(DataFlavor flavor) {
+            return checkBox;
+        }
+    }
+
+    /**
+     * Custom ListCellRenderer for rendering JCheckBox items.
+     */
     private class CheckBoxListRenderer extends JPanel implements ListCellRenderer<JCheckBox> {
         private final JCheckBox checkBox;
 
@@ -102,6 +142,9 @@ public class ReorderableCheckBoxList extends JList<JCheckBox> {
         }
     }
 
+    /**
+     * Custom TransferHandler for handling the drag-and-drop reordering of JCheckBox items.
+     */
     private class CheckBoxTransferHandler extends TransferHandler {
         private int draggedIndex = -1;
 
@@ -147,36 +190,12 @@ public class ReorderableCheckBoxList extends JList<JCheckBox> {
                     listModel.add(dropIndex, draggedValue);
                     draggedIndex = -1;
                 }
-
+                onChange.run();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return false;
-        }
-    }
-
-    private static class CheckBoxTransferable implements Transferable {
-        private static final DataFlavor CHECKBOX_DATA_FLAVOR = new DataFlavor(JCheckBox.class, "JCheckBox");
-        private final JCheckBox checkBox;
-
-        public CheckBoxTransferable(JCheckBox checkBox) {
-            this.checkBox = checkBox;
-        }
-
-        @Override
-        public DataFlavor[] getTransferDataFlavors() {
-            return new DataFlavor[]{CHECKBOX_DATA_FLAVOR};
-        }
-
-        @Override
-        public boolean isDataFlavorSupported(DataFlavor flavor) {
-            return CHECKBOX_DATA_FLAVOR.equals(flavor);
-        }
-
-        @Override
-        public Object getTransferData(DataFlavor flavor) {
-            return checkBox;
         }
     }
 }
